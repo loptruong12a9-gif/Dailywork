@@ -52,10 +52,24 @@ const CONFIG = {
 
 // Initialization
 function init() {
+    checkAppVersion();
     renderCalendar();
     renderTasks();
     updateHeader();
     setupEventListeners();
+}
+
+function checkAppVersion() {
+    const CURRENT_VERSION = '2.6.0 PRO';
+    const savedVersion = localStorage.getItem('mytask_version');
+
+    if (savedVersion !== CURRENT_VERSION) {
+        localStorage.setItem('mytask_version', CURRENT_VERSION);
+        // Delay alert slightly so UI renders first
+        setTimeout(() => {
+            alert(`CẬP NHẬT MỚI THÀNH CÔNG!\nPhiên bản: ${CURRENT_VERSION}\n- Nâng cấp giao diện Mobile\n- Đổi Avatar\n- Lịch 7 màu\n- Sửa lỗi Cache`);
+        }, 500);
+    }
 }
 
 function setupEventListeners() {
