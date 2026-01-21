@@ -288,11 +288,28 @@ body {
     font-weight: 800;
     font-family: 'Times New Roman', Times, serif;
     margin-bottom: 0.25rem;
+
+    /* Hiệu ứng 7 màu RGB */
+    background: linear-gradient(to right,
+            #FF0000, #FF7F00, #FFFF00, #00FF00, #0000FF, #4B0082, #9400D3);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: rainbow_flow 3s linear infinite;
 }
 
 .greeting p {
-    color: var(--text-secondary);
     font-size: 0.9rem;
+
+    /* Hiệu ứng 7 màu RGB */
+    background: linear-gradient(to right,
+            #FF0000, #FF7F00, #FFFF00, #00FF00, #0000FF, #4B0082, #9400D3);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: rainbow_flow 3s linear infinite;
 }
 
 .btn-add {
@@ -382,6 +399,10 @@ body {
     font-size: 1.1rem;
     font-weight: 700;
     line-height: 1.4;
+    margin-bottom: 0.5rem;
+    color: #cc0000;
+    /* Màu đỏ cho nội dung công việc */
+    font-family: 'Times New Roman', Times, serif;
 }
 
 .task-meta {
@@ -593,6 +614,11 @@ body {
     position: relative;
 }
 
+.footer-author-sidebar {
+    display: none;
+    /* Ẩn trên desktop */
+}
+
 .author-badge {
     display: inline-flex;
     align-items: center;
@@ -659,7 +685,8 @@ body {
 @media (max-width: 1024px) {
     .app-wrapper {
         flex-direction: column;
-        padding: 1rem;
+        padding: 0.5rem;
+        /* Giảm padding */
     }
 
     .sidebar {
@@ -667,9 +694,24 @@ body {
         height: auto;
         position: relative;
         top: 0;
-        padding: 1.5rem;
+        padding: 1rem;
+        /* Giảm padding */
         order: 2;
         /* Đẩy sidebar xuống dưới */
+    }
+
+    .footer-author-sidebar {
+        display: block;
+        /* Hiện trên mobile */
+        margin-top: 1rem;
+        /* Giảm margin */
+        padding: 1rem;
+        /* Giảm padding */
+    }
+
+    .main-stage .footer-author {
+        display: none;
+        /* Ẩn footer trong main trên mobile */
     }
 
     .main-stage {
@@ -679,19 +721,64 @@ body {
     }
 
     .top-bar {
-        padding: 1rem 1.5rem;
+        padding: 0.8rem 1rem;
+        /* Giảm padding */
         flex-direction: column;
         align-items: flex-start;
-        gap: 1.2rem;
+        gap: 0.8rem;
+        /* Giảm gap */
     }
 
     .btn-add {
         width: 100%;
         justify-content: center;
+        padding: 0.6rem 1.2rem;
+        /* Giảm padding */
     }
 
     .task-deck {
         grid-template-columns: 1fr;
+        gap: 0.8rem;
+        /* Giảm gap */
+    }
+
+    .greeting h2 {
+        font-size: 1.4rem;
+        /* Giảm size */
+    }
+
+    .greeting p {
+        font-size: 0.8rem;
+        /* Giảm size */
+    }
+
+    .legend-box-inline {
+        padding: 0.6rem 1rem;
+        /* Giảm padding */
+        gap: 0.8rem;
+        /* Giảm gap */
+    }
+
+    .slogan-text {
+        margin-top: 0.5rem;
+        /* Giảm margin */
+        padding-top: 0.5rem;
+        /* Giảm padding */
+    }
+
+    .task-card {
+        padding: 1rem;
+        /* Giảm padding */
+    }
+
+    .calendar-widget {
+        padding: 0.8rem;
+        /* Giảm padding */
+    }
+
+    .stat-pill {
+        padding: 0.8rem;
+        /* Giảm padding */
     }
 }
 

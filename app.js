@@ -3,6 +3,25 @@
  * Developed by: Tân Nguyễn
  */
 
+// Auto-migrate dữ liệu từ các phiên bản cũ
+(function migrateData() {
+    const oldKeys = ['nexus_tasks', 'dailywork_tasks'];
+    const newKey = 'mytask_tasks';
+
+    // Nếu đã có dữ liệu mới thì không cần migrate
+    if (localStorage.getItem(newKey)) return;
+
+    // Tìm và migrate từ key cũ đầu tiên có dữ liệu
+    for (const oldKey of oldKeys) {
+        const oldData = localStorage.getItem(oldKey);
+        if (oldData) {
+            localStorage.setItem(newKey, oldData);
+            console.log(`MyTask: Đã chuyển dữ liệu từ ${oldKey} sang ${newKey}`);
+            break;
+        }
+    }
+})();
+
 const state = {
     currentDate: new Date(),
     selectedDate: new Date(),
