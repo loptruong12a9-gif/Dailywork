@@ -615,8 +615,8 @@ body {
 }
 
 .footer-author-sidebar {
-    display: none;
-    /* Ẩn trên desktop */
+    display: block;
+    /* Hiện trên desktop */
 }
 
 .author-badge {
@@ -679,6 +679,39 @@ body {
     to {
         opacity: 1;
     }
+}
+
+
+/* Task Action Buttons & Meta (New Classes) */
+.task-actions {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    display: flex;
+    gap: 0.5rem;
+    transition: all 0.2s;
+}
+
+.action-btn {
+    cursor: pointer;
+    color: #cbd5e1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px;
+    border-radius: 50%;
+    transition: all 0.2s;
+}
+
+.action-btn:hover {
+    color: var(--accent-color);
+    background: rgba(0, 0, 0, 0.05);
+}
+
+.meta-id {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    font-weight: 600;
 }
 
 /* Responsive Optimization for iPhone */
@@ -788,27 +821,121 @@ body {
         overscroll-behavior-y: contain;
     }
 
+    /* === Header Optimization === */
+    .top-bar {
+        padding: 0.6rem 0.8rem !important;
+        gap: 0.5rem !important;
+        flex-direction: row;
+        /* Keep row if possible, or col if really tight */
+        flex-wrap: wrap;
+    }
+
+    .greeting {
+        flex: 1;
+    }
+
     .greeting h2 {
-        font-size: 1.5rem;
+        font-size: 1.1rem !important;
+        margin-bottom: 0 !important;
+        line-height: 1.2;
+    }
+
+    .greeting p {
+        font-size: 0.75rem !important;
+        margin-bottom: 0.2rem !important;
+        display: block;
+    }
+
+    /* Ẩn chỉ thị màu để tiết kiệm diện tích */
+    .legend-box-inline {
+        display: none !important;
+    }
+
+    .btn-add {
+        padding: 0.5rem 1rem !important;
+        font-size: 0.85rem !important;
+        width: auto !important;
+        /* Allow it to shrink */
+    }
+
+    /* === Task List Optimization === */
+    .task-deck {
+        gap: 0.6rem !important;
+        /* Reduced vertical gap */
     }
 
     .task-card {
-        padding: 1.2rem;
+        padding: 0.7rem !important;
+        gap: 0.4rem !important;
+        border-radius: 12px !important;
+    }
+
+    .task-title {
+        font-size: 1rem !important;
+        line-height: 1.3;
+        margin-bottom: 0 !important;
+        padding-right: 3rem;
+        /* Space for buttons */
+    }
+
+    .status-badge {
+        font-size: 0.65rem !important;
+        padding: 2px 8px !important;
+    }
+
+    .countdown-box {
+        font-size: 0.8rem !important;
+        padding: 0.3rem 0.6rem !important;
+        margin-top: 0.2rem !important;
+        border-radius: 8px !important;
+    }
+
+    .task-meta {
+        padding-top: 0.4rem !important;
+        margin-top: 0.2rem !important;
+        border-top: 1px solid #f1f5f9;
+        font-size: 0.7rem !important;
+    }
+
+    .meta-id {
+        font-size: 0.7rem !important;
+    }
+
+    .custom-checkbox {
+        width: 18px !important;
+        height: 18px !important;
+    }
+
+    /* Action Buttons Position */
+    .task-actions {
+        top: 0.6rem !important;
+        right: 0.6rem !important;
+    }
+
+    .action-btn svg {
+        width: 15px;
+        height: 15px;
     }
 
     .author-badge {
-        padding: 0.6rem 1.5rem;
-        width: calc(100% - 2rem);
+        padding: 0.4rem 1rem;
+        width: 100%;
+        justify-content: center;
+    }
+
+    .author-badge .label {
+        display: none;
     }
 
     .author-badge .name {
-        font-size: 1rem;
+        font-size: 0.9rem;
     }
 
     /* Tối ưu Safe Area cho các dòng iPhone X trở lên */
     .app-wrapper {
-        padding-top: env(safe-area-inset-top);
-        padding-bottom: env(safe-area-inset-bottom);
+        padding: 0.5rem !important;
+        padding-top: env(safe-area-inset-top) !important;
+        padding-bottom: env(safe-area-inset-bottom) !important;
     }
 }
 
