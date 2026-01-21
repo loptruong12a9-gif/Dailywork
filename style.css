@@ -216,6 +216,71 @@ body {
     justify-content: space-between;
     align-items: center;
     box-shadow: var(--glass-shadow);
+    gap: 2rem;
+    flex-wrap: wrap;
+}
+
+.legend-box-inline {
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: var(--radius-lg);
+    padding: 1rem 1.5rem;
+    border: 1px solid var(--glass-border);
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.legend-box-inline h4 {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin: 0;
+    color: var(--text-secondary);
+    font-weight: 900;
+}
+
+.legend-box-inline .legend-row {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0;
+}
+
+.slogan-text {
+    margin-top: 0.75rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    text-align: center;
+    font-family: 'Times New Roman', Times, serif;
+    line-height: 1.6;
+    width: 100%;
+    flex-basis: 100%;
+}
+
+.slogan-text strong {
+    font-size: 0.95rem;
+    font-weight: 900;
+    letter-spacing: 0.5px;
+
+    /* Hiệu ứng 7 màu RGB */
+    background: linear-gradient(to right,
+            #FF0000, #FF7F00, #FFFF00, #00FF00, #0000FF, #4B0082, #9400D3);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: rainbow_flow 3s linear infinite;
+}
+
+.slogan-text em {
+    font-size: 0.75rem;
+    font-style: italic;
+    color: var(--text-secondary);
+    font-weight: 600;
 }
 
 .greeting h2 {
@@ -231,14 +296,14 @@ body {
 }
 
 .btn-add {
-    background: var(--primary-gradient);
+    background: #4CAF50;
     color: white;
     border: none;
     padding: 0.8rem 1.8rem;
     border-radius: var(--radius-pill);
     font-weight: 600;
     cursor: pointer;
-    box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
+    box-shadow: 0 4px 15px rgba(76, 175, 80, 0.4);
     transition: all 0.3s;
     display: flex;
     align-items: center;
@@ -247,7 +312,8 @@ body {
 
 .btn-add:hover {
     transform: translateY(-3px) scale(1.02);
-    box-shadow: 0 6px 20px rgba(99, 102, 241, 0.5);
+    box-shadow: 0 6px 20px rgba(76, 175, 80, 0.5);
+    background: #45a049;
 }
 
 /* Task Cards */
@@ -359,15 +425,15 @@ body {
 .countdown-box {
     margin-top: 0.5rem;
     padding: 0.8rem;
-    background: #0000FF;
+    background: #4CAF50;
     color: #fff;
     border-radius: 12px;
     font-family: 'Times New Roman', Times, serif;
     font-size: 1.1rem;
     font-weight: 900;
     text-align: center;
-    box-shadow: 0 4px 15px rgba(0, 0, 255, 0.4);
-    border: 2px solid #000080;
+    box-shadow: 0 4px 15px rgba(76, 175, 80, 0.4);
+    border: 2px solid #388E3C;
 }
 
 .countdown-box.urgent {
@@ -521,7 +587,7 @@ body {
 
 /* Footer author */
 .footer-author {
-    margin-top: 3rem;
+    margin-top: auto;
     padding: 2rem;
     text-align: center;
     position: relative;
@@ -553,7 +619,7 @@ body {
 
 .author-badge .name {
     font-family: 'Times New Roman', Times, serif;
-    font-size: 1.4rem;
+    font-size: 1rem;
     font-weight: 900;
     text-transform: uppercase;
     letter-spacing: 3px;

@@ -1,12 +1,12 @@
 /**
- * NexusOS - Enterprise Task Management
+ * MyTask - Enterprise Task Management
  * Developed by: Tân Nguyễn
  */
 
 const state = {
     currentDate: new Date(),
     selectedDate: new Date(),
-    tasks: JSON.parse(localStorage.getItem('nexus_tasks')) || []
+    tasks: JSON.parse(localStorage.getItem('mytask_tasks')) || []
 };
 
 const UI = {
@@ -300,11 +300,11 @@ function deleteTask(id) {
 
 function sync() {
     try {
-        localStorage.setItem('nexus_tasks', JSON.stringify(state.tasks));
+        localStorage.setItem('mytask_tasks', JSON.stringify(state.tasks));
         // Thông báo lưu thành công trên iPhone (vùng an toàn)
-        console.log("NexusOS: Data synced successfully.");
+        console.log("MyTask: Data synced successfully.");
     } catch (e) {
-        console.error("NexusOS Persistence Error:", e);
+        console.error("MyTask Persistence Error:", e);
         alert("Lỗi lưu trữ: Bộ nhớ của bạn có thể đã đầy hoặc đang ở chế độ duyệt web ẩn danh.");
     }
 }

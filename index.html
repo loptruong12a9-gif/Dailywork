@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" href="app-icon.png">
-    <title>Enterprise Task Management - Tân Nguyễn Edition</title>
+    <title>MyTask - Tân Nguyễn Edition</title>
     <style>
         * {
             font-family: 'Times New Roman', Times, serif !important;
@@ -24,7 +24,7 @@
                 <img src="app-icon.png" alt="NexuxOS Icon"
                     style="width: 60px; height: 60px; border-radius: 12px; object-fit: contain; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));">
                 <div style="display: flex; flex-direction: column;">
-                    <span>NexusOS</span>
+                    <span>MyTask</span>
                     <span class="version-badge">v2.4.0 PRO</span>
                 </div>
             </div>
@@ -51,28 +51,12 @@
 
             <div class="stats-panel">
                 <div class="stat-pill">
-                    <span class="stat-label">Xông xáo</span>
+                    <span class="stat-label">ĐÃ XONG</span>
                     <span id="stat-completed" class="stat-val">0</span>
                 </div>
                 <div style="margin-top: 1rem;" class="stat-pill">
-                    <span class="stat-label">Pending</span>
+                    <span class="stat-label">CHƯA LÀM</span>
                     <span id="stat-pending" class="stat-val">0</span>
-                </div>
-            </div>
-
-            <div class="legend-box">
-                <h4>Hệ thống chỉ thị</h4>
-                <div class="legend-row">
-                    <div class="indicator badge-green"></div>
-                    <span>Sẵn sàng hôm nay</span>
-                </div>
-                <div class="legend-row">
-                    <div class="indicator badge-yellow"></div>
-                    <span>Ưu tiên sát ngày</span>
-                </div>
-                <div class="legend-row">
-                    <div class="indicator badge-red"></div>
-                    <span>Tầm nhìn xa (+7d)</span>
                 </div>
             </div>
         </aside>
@@ -84,6 +68,27 @@
                     <h2 id="current-day-label">Chào buổi sáng, Tân</h2>
                     <p id="full-date-display">Thứ Tư, 21 Tháng 1, 2026</p>
                 </div>
+
+                <div class="legend-box-inline">
+                    <h4>Hệ thống chỉ thị</h4>
+                    <div class="legend-row">
+                        <div class="indicator badge-green"></div>
+                        <span>Sẵn sàng hôm nay</span>
+                    </div>
+                    <div class="legend-row">
+                        <div class="indicator badge-yellow"></div>
+                        <span>Ưu tiên sát ngày</span>
+                    </div>
+                    <div class="legend-row">
+                        <div class="indicator badge-red"></div>
+                        <span>Tầm nhìn xa (+7d)</span>
+                    </div>
+                    <div class="slogan-text">
+                        <strong>"Kỷ luật tạo nên thành công"</strong><br>
+                        <em>"Discipline Creates Excellence"</em>
+                    </div>
+                </div>
+
                 <button class="btn-add" id="add-task-trigger">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
                         <line x1="12" y1="5" x2="12" y2="19"></line>
