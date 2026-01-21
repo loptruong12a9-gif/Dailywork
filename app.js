@@ -40,14 +40,34 @@ function init() {
 }
 
 function setupEventListeners() {
-    UI.btnPrev.onclick = () => navigateMonth(-1);
-    UI.btnNext.onclick = () => navigateMonth(1);
-    UI.btnAdd.onclick = () => toggleModal(true);
-    UI.btnClose.onclick = () => toggleModal(false);
-    UI.btnSave.onclick = saveTask;
+    UI.btnPrev.addEventListener('click', () => navigateMonth(-1));
+    UI.btnNext.addEventListener('click', () => navigateMonth(1));
+    UI.btnAdd.addEventListener('click', () => toggleModal(true));
+    UI.btnClose.addEventListener('click', () => toggleModal(false));
 
-    UI.modal.onclick = (e) => { if (e.target === UI.modal) toggleModal(false); };
-    UI.input.onkeypress = (e) => { if (e.key === 'Enter') saveTask(); };
+    // Tách riêng logic gán sự kiện cho btnSave để linh hoạt hơn
+    UI.btnSave.addEventListener('click', () => {
+        // btnSave.onclick sẽ được modal quản lý để biết là thêm mới hay sửa
+        if (typeof UI.btnSave.onclick === 'function') {
+            UI.btnSave.onclick();
+        } else {
+            saveTask();
+        }
+    });
+
+    UI.modal.addEventListener('click', (e) => {
+        if (e.target === UI.modal) toggleModal(false);
+    });
+
+    UI.input.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            if (typeof UI.btnSave.onclick === 'function') {
+                UI.btnSave.onclick();
+            } else {
+                saveTask();
+            }
+        }
+    });
 }
 
 // Calendar Engine
@@ -184,7 +204,8 @@ function updateAllCountdowns() {
 
 function getCountdown(targetDateStr) {
     const now = new Date();
-    const targetDate = new Date(targetDateStr);
+    // Safari Fix: Chuyển đổi dấu gạch ngang sang gạch chéo để tương thích hoàn toàn
+    const targetDate = new Date(targetDateStr.replace(/-/g, '/'));
     targetDate.setHours(23, 59, 59, 999);
 
     const diff = targetDate - now;
@@ -212,7 +233,9 @@ function getPriority(task) {
     if (task.completed) return { label: 'Đã hoàn thành', class: 'badge-gray' };
 
     const today = new Date(); today.setHours(0, 0, 0, 0);
-    const target = new Date(task.date); target.setHours(0, 0, 0, 0);
+    // Safari Fix: Replace dashes with slashes for more reliable parsing
+    const target = new Date(task.date.replace(/-/g, '/'));
+    target.setHours(0, 0, 0, 0);
     const diff = Math.ceil((target - today) / (1000 * 60 * 60 * 24));
 
     if (diff === 0) return { label: 'Hôm nay', class: 'badge-green' };
@@ -276,7 +299,14 @@ function deleteTask(id) {
 }
 
 function sync() {
-    localStorage.setItem('nexus_tasks', JSON.stringify(state.tasks));
+    try {
+        localStorage.setItem('nexus_tasks', JSON.stringify(state.tasks));
+        // Thông báo lưu thành công trên iPhone (vùng an toàn)
+        console.log("NexusOS: Data synced successfully.");
+    } catch (e) {
+        console.error("NexusOS Persistence Error:", e);
+        alert("Lỗi lưu trữ: Bộ nhớ của bạn có thể đã đầy hoặc đang ở chế độ duyệt web ẩn danh.");
+    }
 }
 
 function updateHeader() {
@@ -289,7 +319,8 @@ function updateHeader() {
 
 function updateStats() {
     const month = state.selectedDate.getMonth();
-    const monthTasks = state.tasks.filter(t => new Date(t.date).getMonth() === month);
+    // Safari Fix cho date-parsing
+    const monthTasks = state.tasks.filter(t => new Date(t.date.replace(/-/g, '/')).getMonth() === month);
     const comp = monthTasks.filter(t => t.completed).length;
     UI.statComp.textContent = comp;
     UI.statPend.textContent = monthTasks.length - comp;
