@@ -602,10 +602,14 @@ body {
         position: relative;
         top: 0;
         padding: 1.5rem;
+        order: 2;
+        /* Đẩy sidebar xuống dưới */
     }
 
     .main-stage {
         width: 100%;
+        order: -1;
+        /* Đưa công việc lên đầu */
     }
 
     .top-bar {
