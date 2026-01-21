@@ -60,14 +60,14 @@ function init() {
 }
 
 function checkAppVersion() {
-    const CURRENT_VERSION = '2.6.0 PRO';
+    const CURRENT_VERSION = '2.6.1 PRO';
     const savedVersion = localStorage.getItem('mytask_version');
 
     if (savedVersion !== CURRENT_VERSION) {
         localStorage.setItem('mytask_version', CURRENT_VERSION);
         // Delay alert slightly so UI renders first
         setTimeout(() => {
-            alert(`CẬP NHẬT MỚI THÀNH CÔNG!\nPhiên bản: ${CURRENT_VERSION}\n- Nâng cấp giao diện Mobile\n- Đổi Avatar\n- Lịch 7 màu\n- Sửa lỗi Cache`);
+            alert(`CẬP NHẬT MỚI THÀNH CÔNG!\nPhiên bản: ${CURRENT_VERSION}\n- Đã sửa lỗi lưu 2 nhiệm vụ (Double Save Bug)\n- Nâng cấp độ ổn định`);
         }, 500);
     }
 }
@@ -78,15 +78,8 @@ function setupEventListeners() {
     UI.btnAdd.addEventListener('click', () => toggleModal(true));
     UI.btnClose.addEventListener('click', () => toggleModal(false));
 
-    // Tách riêng logic gán sự kiện cho btnSave để linh hoạt hơn
-    UI.btnSave.addEventListener('click', () => {
-        // btnSave.onclick sẽ được modal quản lý để biết là thêm mới hay sửa
-        if (typeof UI.btnSave.onclick === 'function') {
-            UI.btnSave.onclick();
-        } else {
-            saveTask();
-        }
-    });
+    // FIX: Removed the redundant click listener that was causing double-save (duplicate tasks)
+    // The separate assignments to UI.btnSave.onclick in toggleModal are sufficient.
 
     UI.modal.addEventListener('click', (e) => {
         if (e.target === UI.modal) toggleModal(false);
