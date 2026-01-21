@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="app-icon.png">
+    <title>Enterprise Task Management - Tân Nguyễn Edition</title>
+    <style>
+        * {
+            font-family: 'Times New Roman', Times, serif !important;
+        }
+    </style>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="bg-gradient-top"></div>
+
+    <div class="app-wrapper">
+        <!-- Dashboard Sidebar -->
+        <aside class="sidebar">
+            <div class="brand">
+                <img src="app-icon.png" alt="NexuxOS Icon"
+                    style="width: 60px; height: 60px; border-radius: 12px; object-fit: contain; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));">
+                <div style="display: flex; flex-direction: column;">
+                    <span>NexusOS</span>
+                    <span class="version-badge">v2.4.0 PRO</span>
+                </div>
+            </div>
+
+            <div class="calendar-widget">
+                <div class="calendar-header">
+                    <button class="calendar-btn" id="prev-month">←</button>
+                    <span id="month-year-display">Tháng 01, 2026</span>
+                    <button class="calendar-btn" id="next-month">→</button>
+                </div>
+                <div class="days-grid">
+                    <div class="day-label">S</div>
+                    <div class="day-label">M</div>
+                    <div class="day-label">T</div>
+                    <div class="day-label">W</div>
+                    <div class="day-label">T</div>
+                    <div class="day-label">F</div>
+                    <div class="day-label">S</div>
+                </div>
+                <div id="calendar-days" class="days-grid">
+                    <!-- Days injected via JS -->
+                </div>
+            </div>
+
+            <div class="stats-panel">
+                <div class="stat-pill">
+                    <span class="stat-label">Xông xáo</span>
+                    <span id="stat-completed" class="stat-val">0</span>
+                </div>
+                <div style="margin-top: 1rem;" class="stat-pill">
+                    <span class="stat-label">Pending</span>
+                    <span id="stat-pending" class="stat-val">0</span>
+                </div>
+            </div>
+
+            <div class="legend-box">
+                <h4>Hệ thống chỉ thị</h4>
+                <div class="legend-row">
+                    <div class="indicator badge-green"></div>
+                    <span>Sẵn sàng hôm nay</span>
+                </div>
+                <div class="legend-row">
+                    <div class="indicator badge-yellow"></div>
+                    <span>Ưu tiên sát ngày</span>
+                </div>
+                <div class="legend-row">
+                    <div class="indicator badge-red"></div>
+                    <span>Tầm nhìn xa (+7d)</span>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Operating Screen -->
+        <main class="main-stage">
+            <header class="top-bar">
+                <div class="greeting">
+                    <h2 id="current-day-label">Chào buổi sáng, Tân</h2>
+                    <p id="full-date-display">Thứ Tư, 21 Tháng 1, 2026</p>
+                </div>
+                <button class="btn-add" id="add-task-trigger">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                        <line x1="12" y1="5" x2="12" y2="19"></line>
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                    </svg>
+                    Khởi tạo tác vụ
+                </button>
+            </header>
+
+            <section id="task-deck" class="task-deck">
+                <!-- Task cards injected via JS -->
+            </section>
+
+            <footer class="footer-author">
+                <div class="author-badge">
+                    <span class="label">LEAD DESIGNER & ARCHITECT</span>
+                    <span class="name">Tân Nguyễn</span>
+                </div>
+            </footer>
+        </main>
+    </div>
+
+    <!-- Modal System -->
+    <div class="modal-overlay" id="task-modal">
+        <div class="modal-box">
+            <h3 style="font-family: 'Outfit', sans-serif; font-size: 1.5rem; margin-bottom: 2rem;">Thiết lập tác vụ mới
+            </h3>
+            <div style="margin-bottom: 2rem;">
+                <label
+                    style="display: block; font-size: 0.8rem; font-weight: 700; margin-bottom: 0.5rem; color: var(--text-secondary);">MÔ
+                    TẢ CÔNG VIỆC</label>
+                <input type="text" id="task-input" placeholder="Ví dụ: Họp chiến lược quý 1...">
+            </div>
+            <div style="display: flex; gap: 1rem; justify-content: flex-end;">
+                <button id="close-modal"
+                    style="background: #f1f5f9; border: none; padding: 0.8rem 1.5rem; border-radius: 12px; font-weight: 600; cursor: pointer;">Hủy
+                    bỏ</button>
+                <button id="save-task" class="btn-add" style="padding: 0.8rem 2rem;">Kích hoạt</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
