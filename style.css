@@ -93,7 +93,8 @@ body {
     font-weight: 900;
     color: #ffffff;
     -webkit-text-fill-color: #ffffff;
-    background: #000000;
+    background: #0077be;
+    /* Ocean Blue */
     padding: 3px 10px;
     border-radius: 4px;
     width: fit-content;
@@ -194,6 +195,24 @@ body {
 
 .day-cell.today {
     border: 2px solid var(--accent-color);
+}
+
+.day-cell.has-task {
+    background: linear-gradient(to right,
+            #FF0000, #FF7F00, #FFFF00, #008000, #0000FF, #4B0082, #9400D3);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 900;
+    /* Adding a subtle text shadow to ensure visibility if background issues occur, 
+       though text-fill-color transparent usually overrides this. 
+       Use filter for glow effect instead */
+    filter: drop-shadow(0 0 1px rgba(0, 0, 0, 0.1));
+}
+
+.day-cell.has-task.active {
+    /* When active, we want the white text on gradient background, not rainbow text */
+    -webkit-text-fill-color: white;
 }
 
 /* Main Content Area */
@@ -483,6 +502,21 @@ body {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.stat-pill:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    background: #f8fafc;
+}
+
+#pending-pill {
+    cursor: pointer;
+}
+
+#pending-pill:active {
+    transform: scale(0.98);
 }
 
 .stat-val {

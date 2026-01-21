@@ -87,6 +87,83 @@ function setupEventListeners() {
             }
         }
     });
+
+    // Avatar Upload Logic
+    const avatarImg = document.getElementById('app-avatar');
+    const avatarInput = document.getElementById('avatar-input');
+
+    if (avatarImg && avatarInput) {
+        avatarImg.addEventListener('click', () => avatarInput.click());
+
+        avatarInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (evt) {
+                    const base64Info = evt.target.result;
+                    avatarImg.src = base64Info;
+                    try {
+                        localStorage.setItem('mytask_avatar', base64Info);
+                    } catch (err) {
+                        alert("Không thể lưu ảnh (file quá lớn).");
+                    }
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // Load saved avatar
+        const savedAvatar = localStorage.getItem('mytask_avatar');
+        if (savedAvatar) {
+            avatarImg.src = savedAvatar;
+        }
+    }
+
+    // Pending Tasks Navigation Logic
+    if (UI.statPend) {
+        UI.statPend.parentElement.addEventListener('click', () => {
+            const now = new Date();
+            now.setHours(0, 0, 0, 0);
+
+            // Find all pending tasks
+            const pendingTasks = state.tasks.filter(t => !t.completed);
+
+            if (pendingTasks.length === 0) {
+                alert("Tuyệt vời! Bạn không còn công việc nào chưa hoàn thành.");
+                return;
+            }
+
+            // Sort by date (earliest first)
+            pendingTasks.sort((a, b) => new Date(a.date) - new Date(b.date));
+
+            // Find the most urgent task (closest to today or past due)
+            // We prioritize past due tasks first, then today, then future
+            const urgentTask = pendingTasks[0]; // Since we sorted, the first one is the oldest/earliest
+
+            if (urgentTask) {
+                const targetDate = new Date(urgentTask.date.replace(/-/g, '/'));
+                state.selectedDate = targetDate;
+                renderCalendar();
+                renderTasks();
+                updateHeader();
+
+                // Highlight effect
+                setTimeout(() => {
+                    const card = [...UI.taskDeck.children].find(c => c.innerHTML.includes(urgentTask.id.slice(-4)));
+                    if (card) {
+                        card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        card.style.transition = "all 0.5s";
+                        card.style.transform = "scale(1.05)";
+                        card.style.boxShadow = "0 0 20px rgba(255, 165, 0, 0.5)";
+                        setTimeout(() => {
+                            card.style.transform = "";
+                            card.style.boxShadow = "";
+                        }, 1000);
+                    }
+                }, 100);
+            }
+        });
+    }
 }
 
 // Calendar Engine
@@ -115,7 +192,19 @@ function renderCalendar() {
     for (let i = 1; i <= last; i++) {
         const isToday = i === state.currentDate.getDate() && month === state.currentDate.getMonth() && year === state.currentDate.getFullYear();
         const isSelected = i === state.selectedDate.getDate();
-        appendDay(i, false, isToday, isSelected);
+
+        // Check if day has any tasks
+        const checkDateStr = `${year}-${(month + 1).toString().padStart(2, '0')}-${i.toString().padStart(2, '0')}`;
+        const hasTask = state.tasks.some(t => t.date === checkDateStr && !t.completed); // Only mark if has pending tasks? Or all? Request says "has task" (CÓ NHIỆM VỤ)
+        // Let's mark if it has ANY non-completed task for rainbow. Or maybe any task?
+        // User said "NGÀY NÀO CÓ NHIỆM VỤ", usually implies actice/pending tasks or just any assignment. 
+        // Let's assume ANY task for now to show busy days. But usually users care about pending.
+        // Let's stick to Pending tasks for "Rainbow" to make it stand out as "To Do".
+        // Actually, let's do ANY task to populate the calendar, but maybe distinguish?
+        // Let's stick to the prompt "CÓ NHIỆM VỤ" -> Has Task.
+        const dayHasTask = state.tasks.some(t => t.date === checkDateStr);
+
+        appendDay(i, false, isToday, isSelected, dayHasTask);
     }
 
     // Fill next month days
@@ -126,9 +215,12 @@ function renderCalendar() {
     }
 }
 
-function appendDay(d, isOther, isToday, isSelected) {
+function appendDay(d, isOther, isToday, isSelected, hasTask = false) {
     const cell = document.createElement('div');
-    cell.className = `day-cell ${isOther ? 'other' : ''} ${isToday ? 'today' : ''} ${isSelected && !isOther ? 'active' : ''}`;
+    // Priority of styles: active > today > hasTask > normal
+    // But hasTask needs rainbow text.
+    // CSS handle: .day-cell.has-task
+    cell.className = `day-cell ${isOther ? 'other' : ''} ${isToday ? 'today' : ''} ${isSelected && !isOther ? 'active' : ''} ${hasTask && !isOther && !isSelected ? 'has-task' : ''}`;
     cell.textContent = d;
 
     if (!isOther) {

@@ -21,8 +21,9 @@
         <!-- Dashboard Sidebar -->
         <aside class="sidebar">
             <div class="brand">
-                <img src="app-icon.png" alt="NexuxOS Icon"
-                    style="width: 60px; height: 60px; border-radius: 12px; object-fit: contain; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));">
+                <img src="app-icon.png" alt="NexuxOS Icon" id="app-avatar"
+                    style="width: 60px; height: 60px; border-radius: 12px; object-fit: contain; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2)); cursor: pointer;">
+                <input type="file" id="avatar-input" hidden accept="image/*">
                 <div style="display: flex; flex-direction: column;">
                     <span>MyTask</span>
                     <span class="version-badge">v2.5.0 PRO</span>
@@ -54,7 +55,7 @@
                     <span class="stat-label">ĐÃ XONG</span>
                     <span id="stat-completed" class="stat-val">0</span>
                 </div>
-                <div style="margin-top: 1rem;" class="stat-pill">
+                <div style="margin-top: 1rem;" class="stat-pill" id="pending-pill">
                     <span class="stat-label">CHƯA LÀM</span>
                     <span id="stat-pending" class="stat-val">0</span>
                 </div>
